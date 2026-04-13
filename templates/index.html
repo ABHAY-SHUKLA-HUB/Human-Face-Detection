@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure Face Detection Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page-bg"></div>
+
+  <main class="app-shell">
+    <section class="hero-card">
+      <div class="hero-left">
+        <p class="badge">Azure AI Face Detection</p>
+        <h1>Detect faces with a clean dashboard UI</h1>
+        <p class="subtitle">
+          Upload an image, enter your Azure endpoint and key, and get face bounding boxes instantly.
+        </p>
+      </div>
+      <div class="hero-right">
+        <div class="stat-card">
+          <span class="stat-label">Mode</span>
+          <span class="stat-value">Face Detect</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Backend</span>
+          <span class="stat-value">Python Flask</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel form-panel">
+        <div class="panel-header">
+          <h2>Dashboard</h2>
+          <p>Fill your Azure details and upload an image.</p>
+        </div>
+
+        <form id="detectForm">
+          <div class="input-group">
+            <label for="endpoint">Azure Endpoint</label>
+            <input
+              type="text"
+              id="endpoint"
+              name="endpoint"
+              placeholder="https://your-resource-name.cognitiveservices.azure.com"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="api_key">Azure API Key</label>
+            <input
+              type="password"
+              id="api_key"
+              name="api_key"
+              placeholder="Enter your Azure key"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="image">Upload Image</label>
+            <input type="file" id="image" name="image" accept="image/*" required />
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="saveLocal" checked />
+            <label for="saveLocal">Save endpoint and key in browser dashboard</label>
+          </div>
+
+          <button type="submit" class="primary-btn">
+            <span id="btnText">Detect Faces</span>
+          </button>
+        </form>
+
+        <div id="statusBox" class="status-box hidden"></div>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="panel-header">
+          <h2>Detection Result</h2>
+          <p>Bounding boxes will appear on the image.</p>
+        </div>
+
+        <div class="result-topbar">
+          <div class="mini-stat">
+            <span>Faces Found</span>
+            <strong id="faceCount">0</strong>
+          </div>
+        </div>
+
+        <div class="canvas-wrapper">
+          <canvas id="resultCanvas"></canvas>
+          <div id="emptyState" class="empty-state">
+            <p>No image processed yet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
